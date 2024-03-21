@@ -99,16 +99,16 @@ const  NavigationMenus = ()=> {
           <ul className="grid gap-3 p-4 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]">
           <li className="row-span-3">
                 <NavigationMenuLink asChild>
-                  <a
+                  <Link
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    href="/profile"
+                    to="/profile"
                   >
                     <img src='https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp' className="rounded-full w-32 lg:w-48" alt=''/>
                     <div className="mb-2 mt-4 text-lg font-medium m-auto">
                       
                     </div>
                     
-                  </a>
+                  </Link>
                 </NavigationMenuLink>
                 </li>
                 <ListItem className="h-100" title="Details">
@@ -157,7 +157,7 @@ const ListItem = React.forwardRef<
     <li>
       <NavigationMenuLink asChild>
         <a
-          ref={ref}
+          
           className={cn(
             "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             className
