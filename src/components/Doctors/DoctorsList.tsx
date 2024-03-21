@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { CardContent } from "../ui/card"
 import { Card } from "../ui/card"
 import { Avataricon } from "./AvatarIcon"
-
+import { Link } from "react-router-dom"
 export function DoctorsList() {
   const [works, setwork] = useState<any>([])
   useEffect(() => {
@@ -33,7 +33,9 @@ export function DoctorsList() {
           }else{
             views =  parseInt(view)
           }
-            return (<Card key={item.username}>
+            return (
+            <Link to={`/doctors/${item.username}`}>
+            <Card key={item.username}>
                 <CardContent className="flex w-64 aspect-square items-center justify-center flex-col gap-3 p-6 ">
                   <span className="text-xl font-semibold">{<Avataricon img={item.profileUrl}/>}</span>
                   <span className="text-xl font-semibold">Dr. {item.username}</span>
@@ -44,10 +46,12 @@ export function DoctorsList() {
                   </div>
                   <span className="h-2"></span>
                   <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{views} reviews</p>
-                  
-</div>
+                  </div>
                 </CardContent>
-              </Card>)
+              </Card>
+              </Link>
+              )
+
         })
         }
     

@@ -4,6 +4,8 @@ import { Newlogin } from "./components/Login/Newlogin"
 import {DoctorsList}  from "./components/Doctors/DoctorsList"
 import NavigationMenus from "./components/common/NavigationMenus"
 import  Home  from "./components/home/Home"
+import { Display } from "./components/Doctors/ViewDoc"
+
 function App() {
   return (
     <ThemeProvider  defaultTheme="system"  storageKey="vite-ui-theme">
@@ -15,6 +17,7 @@ function App() {
           <Route path="/profile" element={<h1>Profile</h1>}></Route>
           <Route path="/test" element={<Home></Home>}></Route>
           <Route path="/doctors" element={<DoctorsList></DoctorsList>}></Route>
+          <Route path="/doctors/:name" element={<Display></Display>}></Route>
         </Routes>
       </div>
     </ThemeProvider>
