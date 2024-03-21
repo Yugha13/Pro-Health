@@ -1,5 +1,0 @@
- ()=>{
-    document.getElementById("card").addEventListener("mouseenter", ()=>{
-        document.getElementById("card").setAttribute('class', 'bg-gray-400')
-    }
-)}
