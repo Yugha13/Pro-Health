@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <BrowserRouter basename='vite-deploy'>
+  <BrowserRouter basename='Pro-Health'>
     <App />
   </BrowserRouter>,
 )

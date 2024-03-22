@@ -1,9 +1,9 @@
 
 import * as React from "react"
 import { Link } from "react-router-dom"
- 
+import  {Data as data}  from "../Data/userAppointment"
 import { cn } from "@/components/utils/cn"
-
+import { ModeToggle } from "../ModeToggle"
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -14,46 +14,18 @@ import {
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
  
-const components: { title: string; href: string; description: string }[] = [
-  {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
-    description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
-  },
-  {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
-    description:
-      "For sighted users to preview content available behind a link.",
-  },
-  {
-    title: "Progress",
-    href: "/docs/primitives/progress",
-    description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-  },
-  {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
-  },
-  {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
-    description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-  },
-  {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
-    description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-  },
-]
  
 const  NavigationMenus = ()=> {
+  const [appointments, setappointments] = React.useState<any>([]);
+  React.useEffect(() => {
+    const res = async() => {
+      const res = (await data());
+      setappointments(res)
+    }
+    res()
+  }, [])
   return (
+    <div className="flex ">
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
@@ -101,7 +73,7 @@ const  NavigationMenus = ()=> {
                 <NavigationMenuLink asChild>
                   <Link
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
-                    to="/profile"
+                    to="/private/profile"
                   >
                     <img src='https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp' className="rounded-full w-32 lg:w-48" alt=''/>
                     <div className="mb-2 mt-4 text-lg font-medium m-auto">
@@ -124,10 +96,10 @@ const  NavigationMenus = ()=> {
                     </div>
                   </Link>
               </ListItem>
-              <Link to={"/doctors"}>
+              <Link to={"/private/doctors"}>
               <ListItem className="" title="Upcoming Appointment">
                 <div className="bg-red-400 text-white mt-2 rounded-xl text-center">
-                Jony Sins
+                  {appointments?appointments[0]?.username:"no appointments"}
                 </div>
                 
               </ListItem>
@@ -138,14 +110,17 @@ const  NavigationMenus = ()=> {
         <NavigationMenuItem>
           
             <NavigationMenuLink  className={navigationMenuTriggerStyle()}>
-              <Link to={"/doctors"}>
+              <Link to={"/private/doctors"}>
               View Doctors
               </Link>
             </NavigationMenuLink>
-          
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
+    <div className="grid place-items-end w-full gap-4 mr-4">
+    <ModeToggle></ModeToggle>
+    </div>
+    </div>
   )
 }
  
@@ -153,6 +128,7 @@ const ListItem = React.forwardRef<
   React.ElementRef<"a">,
   React.ComponentPropsWithoutRef<"a">
 >(({ className, title, children, ...props }, ref) => {
+  ref
   return (
     <li>
       <NavigationMenuLink asChild>

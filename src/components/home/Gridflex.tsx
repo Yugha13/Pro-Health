@@ -9,6 +9,7 @@ import {
   IconTableColumn,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import placeholder from "./placeholder.png"
 
 export function Gridflex() {
   return (
@@ -26,9 +27,6 @@ export function Gridflex() {
     </BentoGrid>
   );
 }
-const Skeleton = () => (
-  <div className="flex flex-1 w-full h-full min-h-[6rem] rounded-xl   dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(ellipse_at_center,white,transparent)]  border border-transparent dark:border-white/[0.2] bg-neutral-100 dark:bg-black"></div>
-);
 
 const SkeletonOne = () => {
   const variants = {
@@ -146,11 +144,20 @@ const SkeletonThree = () => {
       }}
       className="flex flex-1 w-full h-full min-h-[6rem] dark:bg-dot-white/[0.2] rounded-lg bg-dot-black/[0.2] flex-col space-y-2"
       style={{
-        background:
-          "linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab)",
         backgroundSize: "400% 400%",
       }}
-    >
+    > <motion.div
+    initial="initial"
+    animate="animate"
+    whileHover="hover"
+    variants={variants}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      repeatType: "reverse",
+    }}>
+      <img src={placeholder}></img>
+    </motion.div>
       <motion.div className="h-full w-full rounded-lg"></motion.div>
     </motion.div>
   );
@@ -307,10 +314,10 @@ const items = [
     icon: <IconClipboardCopy className="h-4 w-4 text-neutral-500" />,
   },
   {
-    title: "Automated Proofreading",
+    title: "Booking Slot for Patients",
     description: (
       <span className="text-sm">
-        Let AI handle the proofreading of your documents.
+        Doctors will be able to see and confirm your appointments
       </span>
     ),
     header: <SkeletonTwo />,

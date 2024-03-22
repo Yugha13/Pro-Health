@@ -4,20 +4,24 @@ import { Newlogin } from "./components/Login/Newlogin"
 import {DoctorsList}  from "./components/Doctors/DoctorsList"
 import NavigationMenus from "./components/common/NavigationMenus"
 import  Home  from "./components/home/Home"
-import { Display } from "./components/Doctors/ViewDoc"
 
+import PrivateRoute from "./components/Private/PrivateRoute"
+const Profile = () => {
+  console.log("in Profile");
+  return <h1>Profile</h1>
+}
 function App() {
   return (
-    <ThemeProvider  defaultTheme="system"  storageKey="vite-ui-theme">
+    <ThemeProvider  defaultTheme="light"  storageKey="vite-ui-theme">
       <NavigationMenus></NavigationMenus>
       <div className="grid place-items-center h-screen">
         <Routes>
           <Route path="/" element={<Home></Home>}></Route>
           <Route path="/login" element={<Newlogin></Newlogin>}></Route>
-          <Route path="/profile" element={<h1>Profile</h1>}></Route>
-          <Route path="/test" element={<Home></Home>}></Route>
-          <Route path="/doctors" element={<DoctorsList></DoctorsList>}></Route>
-          <Route path="/doctors/:name" element={<Display></Display>}></Route>
+          <Route path="/private" element={<PrivateRoute/>}>
+            <Route path="profile" element={<Profile/>} />
+            <Route path="doctors" element={<DoctorsList></DoctorsList>} />
+          </Route>
         </Routes>
       </div>
     </ThemeProvider>

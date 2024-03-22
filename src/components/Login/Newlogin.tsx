@@ -18,9 +18,27 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
+import axios from "axios"
+import { useNavigate } from "react-router-dom"
 
 export function Newlogin() {
+  const Navi = useNavigate();
   const [isDoc, setisDoc] = useState<boolean>(false);
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const handleLogin = async () => {
+    try{ 
+      const res = await axios.post("https://server-production-fa75.up.railway.app/api/login/client", {username, password});
+      if(res.data.token){
+        localStorage.setItem("token", res.data.token);
+        Navi("/private/doctors")
+      }
+    }catch(e){
+      console.log(e);
+      
+    }
+  }
+
   return (
     <Tabs defaultValue="account" className="w-[400px] ">
       <TabsList className="grid w-full grid-cols-2 mb-10">
@@ -38,11 +56,19 @@ export function Newlogin() {
           <CardContent className="space-y-2">
             <div className="space-y-1">
               <Label htmlFor="email">Email</Label>
-              <Input id="gmail" defaultValue="example@gmail.com" />
+              <Input
+              id="gmail"
+              value={username}
+              onChange={(e) => setusername(e.target.value)}
+              defaultValue="example@gmail.com" />
             </div>
             <div className="space-y-1">
               <Label htmlFor="pass">Password</Label>
-              <Input type="password" id="pass" defaultValue="*******" />
+              <Input
+               type="password"
+               value={password}
+               onChange={(e) => setpassword(e.target.value)}
+               id="pass" />
             </div>
           </CardContent>
           <CardFooter className="flex justify-between">
@@ -50,8 +76,10 @@ export function Newlogin() {
             <Switch onClick={()=>setisDoc(!isDoc)} ></Switch>
             <Label htmlFor="airplane-mode">As {isDoc?"Doctor":"Patient"}</Label>
             </div>
-            <Tip mess="already a user?" title="Login">
+            <button onClick={()=> {username&&password?handleLogin():null}}>
+            <Tip mess="already a user?"  title="Login">
             </Tip>
+            </button>
           </CardFooter>
         </Card>
       </TabsContent>
@@ -70,7 +98,10 @@ export function Newlogin() {
             </div>
             <div className="space-y-1">
               <Label htmlFor="new">New password</Label>
-              <Input id="new" type="password" />
+              <Input
+                id="new"
+                type="password"
+                />
             </div>
           </CardContent>
           <CardFooter>

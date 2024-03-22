@@ -13,10 +13,10 @@ export const Display = () => {
       const fetchDoc = async () => {
         try{
           const res = await axios.get(`https://server-production-fa75.up.railway.app/doc/${params.name}`);
-          console.log(res);
+          //console.log(res);
           if(res.data ){
             if(res.data.username){
-              console.log(res.data);
+              //console.log(res.data);
               
               return setname(res.data);
             }else{
@@ -35,9 +35,15 @@ export const Display = () => {
         <>{err?"404 page not found": "Loading"}</>
       </h2>)
     }
+    const setBooking = async() => {
+      const conf = window.confirm(`Do you want to book an appointment with ${name.username}`);
+      if(conf){
+        axios.post(`https://server-production-fa75.up.railway.app/`)
+      }
+    }
     return (
         
-        <ul className="grid p-4 md:w-1/2 rounded-2xl lg:grid-cols-2 rounded-xl select-none justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
+        <ul className="grid p-4 md:w-1/2 rounded-2xl lg:grid-cols-3 rounded-xl select-none justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md">
               <div
                 className="lg:row-span-2 col-span-2 row-span-2 rounded-xl select-none justify-end rounded-md  p-6 no-underline outline-none focus:shadow-md"
               >
@@ -45,7 +51,7 @@ export const Display = () => {
                   <img  className="rounded-2xl" src={name.profileUrl}></img>
                 </div>  
               </div>
-          <div className="pl-4 " >
+          <div className="pl-4 lg:col-span-1 md:col-span-2" >
           <ListItem  title="Details" className=" w-100">
             <div className="mt-1">
             Name: {name.username}<br></br>
@@ -63,29 +69,26 @@ export const Display = () => {
           </div>
           </ListItem>
           <div className="" >
-          <ListItem  title="Details" className="">
-            <div className="mt-1">
-            Name: {name.username}<br></br>
-            Gmail: {"ashwin@gmail.com"}<br/>
-            phn: (274) 295-5462<br/>
-            email: fe@esa.tw<br/>
+          <ListItem  title="Specialized At" className="">
+            <div className="mt-1 lg:flex-row md:flex-row lg:gap-[.5rem] gap-1 flex flex-wrap">
+              <div className="bg-red-100 text-gray-800 text-xs font-medium me-2 w-1/3 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300 w-fit">Heart</div>
+              <div className="bg-gray-100 text-gray-800 text-xs font-medium me-2 w-1/3 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300 w-fit">checkup</div>
+              <div className="bg-gray-100 text-gray-800 text-xs font-medium me-2 w-1/3 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300 w-fit">HI</div>
+              <div className="bg-gray-100 text-gray-800 text-xs font-medium me-2 w-1/3 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-gray-300 w-fit">Dermatology</div>
             </div>
           </ListItem>
           </div>
-          <div className="pl-4 " >
-          <ListItem  title="Details" className=" w-100">
-            <div className="mt-1">
-            Name: {name.username}<br></br>
-            Gmail: {"ashwin@gmail.com"}<br/>
-            phn: (274) 295-5462<br/>
-            email: fe@esa.tw<br/>
-            </div>
-          </ListItem>
+          <div className="" >
+          
           </div>
           </div>
-          <div className="col-span-2 grid  place-items-start pl-4 md:place-items-start ">
+          <div className="col-span-2 grid  place-items-center pl-4 md:place-items-center">
             <div className="flex gap-2 ">
-          <button className="bg-blue-500 hover:bg-blue-700  border-2 border-blue-700  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground">Book</button>
+          <button
+          className="bg-blue-500 hover:bg-blue-700  border-2 border-blue-700  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground" 
+          onClick={ () => {setBooking()}}>
+            Book
+          </button>
           <button className="focus:shadow-md  border-2 border-blue-300  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground">Call</button>
             </div>
           </div>
