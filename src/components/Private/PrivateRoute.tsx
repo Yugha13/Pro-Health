@@ -1,23 +1,28 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Outlet } from "react-router-dom"
+import { Outlet, Routes } from "react-router-dom"
 import { Skeleton } from "../ui/skeleton"
 import { Link } from "react-router-dom";
+import { Route } from "react-router-dom";
+import { Appointments } from "../WebDoctors/allappointment/Appointments";
 const PrivateRoute = () => {
-  
   const [isLogged, setisLogged] = useState<boolean>(false);
   const [isloading, setisloading] = useState<boolean>(true);
-  useEffect(() => {
+  const [isdoc, setisdoc] = useState<boolean>(false);
+  useEffect( () => {
     const token = localStorage.getItem("token");
     const checkToken = async () => {
       try{
-
         setisloading(true)
         const res = await axios.post("https://server-production-fa75.up.railway.app/api/token", {token})
         console.log(res);
         if (res.data.status === true) {
           console.log('yes');
           setisLogged(true);
+          if(res.data.isDoc == true){
+            console.log('here');
+            setisdoc(true);
+          }
         } else{
           setisLogged(false)
         }
@@ -43,12 +48,20 @@ const PrivateRoute = () => {
     )
   }
   if(!isLogged){
-    
     return (
     <div className="grid place-items-center h-screen w-screen">
       404 Page Not Found / UnAuthrized User
       <Link to={"/login"}>Login</Link>
     </div>)
+  }
+  if(isLogged && isdoc){
+    return (
+      <div className="grid place-items-center h-screen w-screen">
+      <Routes>
+        <Route path="/appointments" element={<Appointments/>}/>
+      </Routes>
+      </div>
+    )
   }
   return (
     <>

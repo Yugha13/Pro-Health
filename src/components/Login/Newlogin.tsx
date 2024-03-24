@@ -28,10 +28,17 @@ export function Newlogin() {
   const [password, setpassword] = useState("");
   const handleLogin = async () => {
     try{ 
-      const res = await axios.post("https://server-production-fa75.up.railway.app/api/login/client", {username, password});
+      console.log(`https://server-production-fa75.up.railway.app/api/login/${isDoc?"doc":"client"}`)
+      const res = await axios.post(`https://server-production-fa75.up.railway.app/api/login/${isDoc?"doc":"client"}`, {username, password});
       if(res.data.token){
         localStorage.setItem("token", res.data.token);
-        Navi("/doctors")
+        console.log(res.data);
+        
+        if(res.data.isDoc){
+          Navi("/appointments")
+        }else{
+          Navi("/doctors")
+        }
       }
     }catch(e){
       console.log(e);

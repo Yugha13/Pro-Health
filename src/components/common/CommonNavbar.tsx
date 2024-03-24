@@ -2,11 +2,12 @@ import { useEffect, useState } from "react";
 import NavigationMenus from "./NavigationMenus";
 import NavigationMenusNot from "./NavigationMenusNot";
 import axios from "axios";
-
+import DocNavigation from "./DocNavigation";
 const CommonNavbar = () => {
     
   const [isLogged, setisLogged] = useState<boolean>(false);
   const [isloading, setisloading] = useState<boolean>(true);
+  const [isdoc, setisdoc] = useState<boolean>(true);
   useEffect(() => {
     const token = localStorage.getItem("token");
     const checkToken = async () => {
@@ -18,6 +19,9 @@ const CommonNavbar = () => {
         if (res.data.status === true) {
           console.log('yes');
           setisLogged(true);
+          if(res.data.isdoc){
+            setisdoc(true);
+          }
         } else{
           setisLogged(false)
         }
@@ -32,7 +36,11 @@ const CommonNavbar = () => {
 
   if(isloading){
     return <></>
-  } if(isLogged) {
+  }
+  if(isLogged && isdoc){
+    return <DocNavigation/>
+  }
+  if(isLogged) {
     return <NavigationMenus></NavigationMenus>
   } else {
     return <NavigationMenusNot/>

@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom"
 import { Newlogin } from "./components/Login/Newlogin"
 import {DoctorsList}  from "./components/Doctors/DoctorsList"
 import  Home  from "./components/home/Home"
+import { Appointments } from "./components/appointments/Appointments"
 import { Display } from "./components/Doctors/ViewDoc"
 import CommonNavbar from "./components/common/CommonNavbar"
 
@@ -23,6 +24,7 @@ function App() {
           <Route  element={<PrivateRoute/>}>
             <Route path="profile" element={<Profile/>} />
             <Route path="doctors" element={<DoctorsList></DoctorsList>} />
+            <Route path="appointments" element={<Appointments/>} />
             <Route path="doctors/:name" element={<Display></Display>} />
           </Route>
           
