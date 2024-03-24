@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import axios from "axios"
 
@@ -31,6 +31,15 @@ export function Login() {
     }
     setIsload(false)
   }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const checktoken = async () => {
+      const res = await axios.post('https://server-production-fa75.up.railway.app/api/token', {token});
+      console.log(res);
+    }
+    const isTokenVaild:any = checktoken();
+    
+  })
   return (
     <Card className="w-[350px]" id="card">
       <CardHeader>

@@ -1,12 +1,10 @@
-import { HeroSection } from './HeroSection';
 import { Worlds } from './World';
 import { Scroll } from './Scroll';
 import { Gridflex } from './Gridflex';
 const Home = () => {
   return (
     <>
-    <HeroSection></HeroSection>
-    <div className='mb-5'>
+    <div className='mb-5 w-screen h-screen grid place-items-center'>
     <Gridflex></Gridflex>
     </div>
     <div className='w-screen'>

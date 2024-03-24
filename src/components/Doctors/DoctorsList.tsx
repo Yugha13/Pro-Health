@@ -12,7 +12,6 @@ export function DoctorsList() {
         //console.log('in fetchdata');
         const data = await doctorList();
         setwork(data);
-
     }
     fetchData();
   }, [])

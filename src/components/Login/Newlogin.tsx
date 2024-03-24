@@ -31,7 +31,7 @@ export function Newlogin() {
       const res = await axios.post("https://server-production-fa75.up.railway.app/api/login/client", {username, password});
       if(res.data.token){
         localStorage.setItem("token", res.data.token);
-        Navi("/private/doctors")
+        Navi("/doctors")
       }
     }catch(e){
       console.log(e);
@@ -40,6 +40,8 @@ export function Newlogin() {
   }
 
   return (
+    <>
+    <div className="grid w-screen place-items-center h-screen">
     <Tabs defaultValue="account" className="w-[400px] ">
       <TabsList className="grid w-full grid-cols-2 mb-10">
         <TabsTrigger value="account">Login</TabsTrigger>
@@ -110,5 +112,7 @@ export function Newlogin() {
         </Card>
       </TabsContent>
     </Tabs>
+    </div>
+    </>
   )
 }

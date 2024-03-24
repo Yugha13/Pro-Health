@@ -13,9 +13,10 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import { Label } from "@radix-ui/react-label"
  
  
-const  NavigationMenus = ()=> {
+const  NavigationMenusNot = ()=> {
   const [appointments, setappointments] = React.useState<any>([]);
   React.useEffect(() => {
     const res = async() => {
@@ -51,14 +52,12 @@ const  NavigationMenus = ()=> {
               </li>
               <Link to={"/docs"}>
               <ListItem  title="View Appointments">
-                Your All Appointments Here👈🏻
+                Your All Appointments Here👈🏻(Login Required)
               </ListItem>
               </Link>
               <Link to={"/login"}>
               <ListItem  title="Contact">
-              
-                ∙phn: (274) 295-5462<br/>
-                ∙email: fe@esa.tw
+                Login
               </ListItem>
               </Link>
               
@@ -75,7 +74,8 @@ const  NavigationMenus = ()=> {
                     className="flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md"
                     to="/profile"
                   >
-                    <img src='https://a.storyblok.com/f/191576/1200x800/faa88c639f/round_profil_picture_before_.webp' className="rounded-full w-32 lg:w-48" alt=''/>
+                    <img src='https://st3.depositphotos.com/6672868/13701/v/450/depositphotos_137014128-stock-illustration-user-profile-icon.jpg' className="rounded-full w-32 lg:w-48" alt=''/>
+                    <Label>Not Logged In</Label>
                     <div className="mb-2 mt-4 text-lg font-medium m-auto">
                       
                     </div>
@@ -87,12 +87,12 @@ const  NavigationMenus = ()=> {
                   <Link to={"/"}>
                   <div className="">
                     <div className="flex justify-spacebetween">
-                    Name: {'ashwin'}
+                    Name: {'****'}
                     </div>
                     <div className="">
-                    Age: {'18'}
+                    Age: {'**'}
                     </div>
-                    gmail: {'ashwin@gmail.com'}
+                    gmail: {'***@gmail.com'}
                     </div>
                   </Link>
               </ListItem>
@@ -151,4 +151,4 @@ const ListItem = React.forwardRef<
 })
 ListItem.displayName = "ListItem"
 
-export default NavigationMenus
+export default NavigationMenusNot
