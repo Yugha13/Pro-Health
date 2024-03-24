@@ -2,12 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router-dom"
 import { Skeleton } from "../ui/skeleton"
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import NavigationMenus from "../common/NavigationMenus";
 const PrivateRoute = () => {
   
-  const navi = useNavigate();
   const [isLogged, setisLogged] = useState<boolean>(false);
   const [isloading, setisloading] = useState<boolean>(true);
   useEffect(() => {

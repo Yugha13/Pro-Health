@@ -37,7 +37,7 @@ export function Login() {
       const res = await axios.post('https://server-production-fa75.up.railway.app/api/token', {token});
       console.log(res);
     }
-    const isTokenVaild:any = checktoken();
+    checktoken();
     
   })
   return (
