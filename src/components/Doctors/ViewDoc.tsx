@@ -8,16 +8,17 @@ export const Display = () => {
     const params = useParams();
     //console.log(params);
     const [name, setname] = useState<any>();
+    const [date, setdate] = useState<any>()
+    const [time, settime] = useState<any>()
     const [err, seterr]  = useState<any>();
     useEffect(() => {
       const fetchDoc = async () => {
         try{
           const res = await axios.get(`https://server-production-fa75.up.railway.app/doc/${params.name}`);
           //console.log(res);
-          if(res.data ){
+          if(res.data){
             if(res.data.username){
               //console.log(res.data);
-              
               return setname(res.data);
             }else{
               return seterr(true)
@@ -38,7 +39,13 @@ export const Display = () => {
     const setBooking = async() => {
       const conf = window.confirm(`Do you want to book an appointment with ${name.username}`);
       if(conf){
-        axios.post(`https://server-production-fa75.up.railway.app/`)
+        const token = localStorage.getItem("token")
+        console.log(params.name);
+        axios.post(`https://server-production-fa75.up.railway.app/api/appointment/${params.name}`, {token, time, date})
+        .then(data => {
+          console.log(data);
+        })
+
       }
     }
     return (
@@ -91,6 +98,18 @@ export const Display = () => {
           </button>
           <button className="focus:shadow-md  border-2 border-blue-300  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground">Call</button>
             </div>
+          </div>
+          <div className="gap-1 flex">
+          <input
+            className="text-gray-300 dark:bg-indigo-300 rounded-xl"
+            type="date"
+            onChange={(e) => setdate(e.target.value)}
+            />
+          <input
+            className="text-gray-300 dark:bg-indigo-300 rounded-xl"
+            type='time'
+            onChange={(e) => settime(e.target.value)}
+            /> 
           </div>
         </ul>
       
