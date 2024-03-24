@@ -1,6 +1,7 @@
 {
   "name": "project3",
   "private": true,
+  "homepage": "https://s-axhwin.github.io/Pro-Health/",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
