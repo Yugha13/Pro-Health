@@ -6,6 +6,7 @@ import  Home  from "./components/home/Home"
 import { Appointments } from "./components/appointments/Appointments"
 import { Display } from "./components/Doctors/ViewDoc"
 import CommonNavbar from "./components/common/CommonNavbar"
+import { Toaster } from "@/components/ui/sonner"
 
 import PrivateRoute from "./components/Private/PrivateRoute"
 const Profile = () => {
@@ -29,6 +30,7 @@ function App() {
           </Route>
           
         </Routes>
+        <Toaster/>
       </div>
     </ThemeProvider>
   )

@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { cn } from "@/components/utils/cn"
-import { Rating } from "@material-tailwind/react";
+import { Button } from "../ui/button";
+import { toast } from "sonner"
 export const Display = () => {
     const params = useParams();
     //console.log(params);
@@ -11,6 +12,8 @@ export const Display = () => {
     const [date, setdate] = useState<any>()
     const [time, settime] = useState<any>()
     const [err, seterr]  = useState<any>();
+    const [open, setopen] = useState<boolean>(false);
+    const [message, setmessage] = useState<any>();
     useEffect(() => {
       const fetchDoc = async () => {
         try{
@@ -44,6 +47,24 @@ export const Display = () => {
         axios.post(`https://server-production-fa75.up.railway.app/api/appointment/${params.name}`, {token, time, date})
         .then(data => {
           console.log(data);
+          toast("booked", {
+            description: "@"+date+" "+time,
+            action: {
+              label: "Undo",
+              onClick: () => console.log("Undo"),
+            },
+            }
+          )
+        }
+        ).catch((e) => {
+          toast("cant book due to some reason", {
+            description: e,
+            action: {
+              label: "Undo",
+              onClick: () => console.log("Undo"),
+            },
+            }
+          )
         })
 
       }
@@ -70,10 +91,7 @@ export const Display = () => {
           </div>
           <div>
           <ListItem title="Rating" className="grid place-items-center">
-          <div className="grid place-items-center mt-3">
-            <Rating readonly value={3} unratedColor="yellow" ratedColor="yellow" placeholder={"hi"} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}></Rating>
-            <p className={cn("transition-colors text-sm text-muted-foreground")} >{"•321"}</p>
-          </div>
+          
           </ListItem>
           <div className="" >
           <ListItem  title="Specialized At" className="">
@@ -91,11 +109,10 @@ export const Display = () => {
           </div>
           <div className="col-span-2 grid  place-items-center pl-4 md:place-items-center">
             <div className="flex gap-2 ">
-          <button
-          className="bg-blue-500 hover:bg-blue-700  border-2 border-blue-700  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground" 
-          onClick={ () => {setBooking()}}>
-            Book
-          </button>
+            <Button onClick={setBooking} className="">
+              book
+            </Button>
+          
           <button className="focus:shadow-md  border-2 border-blue-300  h-fit w-fit p-2 text-white font-bold py-2 px-4 rounded text-sm leading-snug text-muted-foreground">Call</button>
             </div>
           </div>
