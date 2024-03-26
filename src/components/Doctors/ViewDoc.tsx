@@ -12,8 +12,6 @@ export const Display = () => {
     const [date, setdate] = useState<any>()
     const [time, settime] = useState<any>()
     const [err, seterr]  = useState<any>();
-    const [open, setopen] = useState<boolean>(false);
-    const [message, setmessage] = useState<any>();
     useEffect(() => {
       const fetchDoc = async () => {
         try{

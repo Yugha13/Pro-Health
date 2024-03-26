@@ -36,14 +36,18 @@ const PrivateRoute = () => {
   }, [])
   if(isloading){
     return (
-    <div className="grid place-items-center h-screen w-screen">
-    <div className="flex items-center space-x-4">
+    
+    <div  className="grid place-items-center grid-cols-2 lg:grid-cols-4 h-screen w-screen">
+   { [1,2,3,4,5,6,7,8].map(item => (
+    <div key={item} className="flex flex-col  items-center space-x-4 ">
       <Skeleton className="h-12 w-12 rounded-full" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px]" />
-        <Skeleton className="h-4 w-[200px]" />
+      <div className="space-y-2 grid place-items-center">
+        <Skeleton className="h-6 w-[200px]" />
+        <Skeleton className="h-6 w-[250px]" />
+        <Skeleton className="h-[3rem] w-[250px]" />
       </div>
     </div>
+    ))}
     </div>
     )
   }
