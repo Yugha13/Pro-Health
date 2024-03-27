@@ -5,19 +5,17 @@ import { CardContent } from "../ui/card"
 import { Card } from "../ui/card"
 import { Avataricon } from "./AvatarIcon"
 import { Link } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchAppointment } from "@/redux/slice/appointSlice"
 export function DoctorsList() {
-  const [works, setwork] = useState<any>([])
+  const works = useSelector((item: any) => item.app.data)
+  const dispatch = useDispatch();
   useEffect(() => {
-    const fetchData = async()=>{
-        //console.log('in fetchdata');
-        const data = await doctorList();
-        setwork(data);
-    }
-    fetchData();
+    dispatch(fetchAppointment('') as any)
   }, [])
   return (
     <div className="grid lg:grid-cols-5 mt-9  sm:grid-cols-2 sm:gap-4 lg:gap-7  gap-3">
-        {works.map((item:any) => {
+        {works?.map((item:any) => {
           let rating = parseFloat((Math.random()*10).toFixed(2))
           let ratings = 0;
           if(rating<1){

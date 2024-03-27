@@ -1,47 +1,26 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import NavigationMenus from "./NavigationMenus";
 import NavigationMenusNot from "./NavigationMenusNot";
-import axios from "axios";
 import DocNavigation from "./DocNavigation";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserDetails } from "@/redux/slice/userSlice";
 const CommonNavbar = () => {
-    
-  const [isLogged, setisLogged] = useState<boolean>(false);
-  const [isloading, setisloading] = useState<boolean>(true);
-  const [isdoc, setisdoc] = useState<boolean>(true);
+  const dispatch = useDispatch();
+  const raw = useSelector((item:any) => item)
+  const {isloading, islogged, isDoc} = raw.user
+  const appointments = raw.app.data
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const checkToken = async () => {
-      try{
-
-        setisloading(true)
-        const res = await axios.post("https://server-production-fa75.up.railway.app/api/token", {token})
-        console.log(res);
-        if (res.data.status === true) {
-          console.log('yes');
-          setisLogged(true);
-          if(res.data.isdoc){
-            setisdoc(true);
-          }
-        } else{
-          setisLogged(false)
-        }
-        setisloading(false)
-      } catch (e){
-        setisloading(false)
-      }
-    }
-    checkToken();
-    
+    dispatch(fetchUserDetails('') as any)
   }, []);
 
   if(isloading){
-    return <></>
+    return <NavigationMenusNot></NavigationMenusNot>
   }
-  if(isLogged && isdoc){
+  if(islogged && isDoc){
     return <DocNavigation/>
   }
-  if(isLogged) {
-    return <NavigationMenus></NavigationMenus>
+  if(islogged) {
+    return <NavigationMenus appointments={appointments}></NavigationMenus>
   } else {
     return <NavigationMenusNot/>
   }

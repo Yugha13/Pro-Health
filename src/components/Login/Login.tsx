@@ -12,15 +12,18 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useNavigate } from "react-router-dom"
+import { useDispatch } from "react-redux"
+import { fetchUserDetails } from "@/redux/slice/userSlice"
 
 
 export function Login() {
+  const dispatch = useDispatch();
   const [name, setname] = useState<string>("");
   const [pass, setpass] = useState<string>("");
   const Navigator = useNavigate();
   const [isload, setIsload] = useState<boolean>(false);
   const [varient, setVarient] = useState<"secondary" | "destructive" | "link" | "default" | "outline" | "ghost" | null | undefined>("secondary");
-  const handleSubmit = async(e:any)=>{
+  /*const handleSubmit = async(e:any)=>{
     setIsload(true)
     e.preventDefault();
     const rep = await axios.post("https://server-production-fa75.up.railway.app/api/login/cus", {username: name, password: pass});
@@ -30,6 +33,13 @@ export function Login() {
       setVarient("destructive");
     }
     setIsload(false)
+  }*/
+  const handleSubmit =async (params:any) => {
+    params.preventDefault();
+    setIsload(true)
+    dispatch(fetchUserDetails({username: name, password: pass}) as any)
+    .then(() => {setIsload(false); Navigator('/doctors')})
+    .catch(() => setVarient("destructive"));
   }
   useEffect(() => {
     const token = localStorage.getItem("token");

@@ -8,6 +8,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { useDispatch } from "react-redux"
+import { fetchUserDetails } from "@/redux/slice/userSlice"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tip } from "../common/Tip"
@@ -18,32 +20,15 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs"
 import { Switch } from "@/components/ui/switch"
-import axios from "axios"
-import { useNavigate } from "react-router-dom"
 
 export function Newlogin() {
-  const Navi = useNavigate();
+  const dispatch = useDispatch();
   const [isDoc, setisDoc] = useState<boolean>(false);
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
   const handleLogin = async () => {
-    try{ 
-      console.log(`https://server-production-fa75.up.railway.app/api/login/${isDoc?"doc":"client"}`)
-      const res = await axios.post(`https://server-production-fa75.up.railway.app/api/login/${isDoc?"doc":"client"}`, {username, password});
-      if(res.data.token){
-        localStorage.setItem("token", res.data.token);
-        console.log(res.data);
-        
-        if(res.data.isDoc){
-          Navi("/appointments")
-        }else{
-          Navi("/doctors")
-        }
-      }
-    }catch(e){
-      console.log(e);
-      
-    }
+    dispatch(fetchUserDetails({username, password}) as any)
+    .then((res:any) => console.log(res))
   }
 
   return (

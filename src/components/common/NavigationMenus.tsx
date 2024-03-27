@@ -1,8 +1,8 @@
 
 import * as React from "react"
 import { Link } from "react-router-dom"
-import  {Data as data}  from "../Data/userAppointment"
 import { cn } from "@/components/utils/cn"
+import { Button } from "../ui/button"
 import { ModeToggle } from "../ModeToggle"
 import {
   NavigationMenu,
@@ -13,17 +13,17 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
+import  logout  from "@/redux/slice/userSlice"
+import { useSelector, useDispatch } from "react-redux"
+import { fetchAppointment } from "@/redux/slice/appointSlice"
+
  
- 
-const  NavigationMenus = ()=> {
-  const [appointments, setappointments] = React.useState<any>([]);
-  React.useEffect(() => {
-    const res = async() => {
-      const res = (await data());
-      setappointments(res)
-    }
-    res()
-  }, [])
+const  NavigationMenus = ({appointments}:{appointments:any})=> {
+  const dispatch = useDispatch()
+  const Logout = () => {
+    console.log(logout);
+    
+  }
   return (
     <div className="flex ">
     <NavigationMenu>
@@ -101,9 +101,9 @@ const  NavigationMenus = ()=> {
                 <div className="bg-red-400 text-white mt-2 rounded-xl text-center">
                   {appointments?appointments[0]?.username:"no appointments"}
                 </div>
-                
               </ListItem>
               </Link>
+                <Button onClick={Logout}>Logout</Button>
                 </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
